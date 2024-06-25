@@ -1,9 +1,9 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 
 @Controller('url-manipulation')
 export class UrlManipulationController {
-  @Get(':url')
-  transformUrl(@Param('url') url: string): string {
-    return url;
+  @Get()
+  transformUrl(): string {
+    return 'poz';
   }
 }
