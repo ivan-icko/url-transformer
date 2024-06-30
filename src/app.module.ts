@@ -8,6 +8,7 @@ import logger from './config/logger.config';
 import database from './config/database.config';
 import servicesConfig from './config/services.config';
 import generalConfig from './config/general.config';
+import { ResponseModule } from './common/modules/response/response.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import generalConfig from './config/general.config';
       isGlobal: true,
       load: [database, logger, servicesConfig, generalConfig],
     }),
+    ResponseModule,
   ],
   controllers: [],
   providers: [],
