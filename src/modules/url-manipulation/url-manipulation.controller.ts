@@ -8,7 +8,7 @@ export class UrlManipulationController {
   ) {}
 
   @Get()
-  public async transformUrl(): Promise<string> {
-    return await this.urlManipulationService.transformUrl();
+  public async transformUrl(): Promise<any> {
+    return await this.urlManipulationService.transformUrls();
   }
 }
