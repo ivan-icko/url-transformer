@@ -52,6 +52,10 @@ export class UrlManipulationService {
     }, currentLevel);
   }
 
+  /**
+   * Fetches the data from the API and processes it to return the desired structure.
+   * @returns The processed data.
+   */
   public async transformUrls(): Promise<IpFileMap> {
     try {
       /*  const data: DataFile | undefined = await this.cacheManager.get(
