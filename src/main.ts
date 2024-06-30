@@ -31,11 +31,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe(validationOptions));
 
   let swaggerPath = DEFAULT_DOC_PATH;
-  let docPath = '/documentation';
   if (PREFIX.length > 0) {
     app.setGlobalPrefix(PREFIX);
     swaggerPath = `${PREFIX}/${swaggerPath}`;
-    docPath = `/${PREFIX}${docPath}`;
   }
 
   // swagger setup... (path: http://$host:$port/docs)
