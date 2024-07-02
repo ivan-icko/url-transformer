@@ -1,7 +1,7 @@
 import { transports } from 'winston';
 import { format } from 'logform';
 import * as Transport from 'winston-transport';
-import { AVAILABLE_TRANSPORTS } from 'src/common/constants/logger';
+import { AVAILABLE_TRANSPORTS } from '../../../config/logger.config';
 import { TransportConfig } from './config.interface';
 import DailyRotateFile from 'winston-daily-rotate-file';
 export class TransportFactory {

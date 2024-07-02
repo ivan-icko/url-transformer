@@ -18,3 +18,5 @@ export const DELETE = 'DELETE';
 
 // SERVICES
 export const VERCEL_TEST_SERVICE = 'vercelTestService';
+
+export const REDIS_CLIENT = 'REDIS_CLIENT';

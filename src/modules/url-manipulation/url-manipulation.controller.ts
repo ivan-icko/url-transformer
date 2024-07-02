@@ -1,8 +1,9 @@
 import { Controller, Get, UseFilters, UseInterceptors } from '@nestjs/common';
 import { UrlManipulationService } from './url-manipulation.service';
-import { LoggerInterceptor } from 'src/common/interceptors/logger.interceptor';
-import { HttpExceptionFilter } from 'src/common/filters/http-excetpion.filter';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { HttpExceptionFilter } from '../../common/filters/http-excetpion.filter';
+import { LoggerInterceptor } from '../../common/interceptors/logger.interceptor';
+import { CacheMethodResult } from '../../common/decorators/cache/cache.decorator';
 
 /**
  * Controller responsible for handling requests related to the "url-manipulation" endpoint.
@@ -21,6 +22,7 @@ export class UrlManipulationController {
    * @returns A string containing the response message.
    */
   @Get()
+  @CacheMethodResult({ ttl: 60 })
   @ApiOperation({ summary: 'Transform URL' })
   @ApiResponse({ status: 200, description: 'Successfully transformed URL' })
   public async transformUrl(): Promise<any> {

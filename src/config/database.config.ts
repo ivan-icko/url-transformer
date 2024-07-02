@@ -1,5 +1,5 @@
 import { registerAs } from '@nestjs/config';
-import { DATABASE_CONFIG } from 'src/common/constants/general';
+import { DATABASE_CONFIG } from '../common/constants/general';
 
 export default registerAs(DATABASE_CONFIG, () => ({
   mysql: {
@@ -13,5 +13,11 @@ export default registerAs(DATABASE_CONFIG, () => ({
     logging: process.env.MYSQL_DB_LOGGING === 'true' || false,
     connectTimeout: process.env.MYSQL_DB_CONNECT_TIMEOUT || 1000,
     acquireTimeout: process.env.MYSQL_DB_ACQUIRE_TIMEOUT || 500,
+  },
+  redis: {
+    host: process.env.REDIS_HOST,
+    port: Number(process.env.REDIS_PORT) || 6379,
+    database: Number(process.env.REDIS_DATABASE) || 0,
+    redisGlobalPrefix: process.env.REDIS_GLOBAL_PREFIX || 'nest:',
   },
 }));

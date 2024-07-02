@@ -1,6 +1,4 @@
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Inject, Injectable } from '@nestjs/common';
-import { Cache } from 'cache-manager';
+import { Injectable } from '@nestjs/common';
 import { VercelTestService } from '../services/vercel-test/vercel-test.service';
 
 interface FileStructure {
@@ -13,12 +11,20 @@ interface IpFileMap {
 
 @Injectable()
 export class UrlManipulationService {
-  private readonly cacheKey = 'apiData';
+  constructor(private readonly vercelTestService: VercelTestService) {}
 
-  constructor(
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
-    private readonly vercelTestService: VercelTestService,
-  ) {}
+  /**
+   * Fetches the data from the API and processes it to return the desired structure.
+   * @returns The processed data.
+   */
+  public async transformUrls(): Promise<IpFileMap> {
+    const data = await this.vercelTestService.getTestFileUrls();
+    const result: IpFileMap = {};
+    data.items.forEach((fileUrlObject) => {
+      this.processUrl(fileUrlObject.fileUrl, result);
+    });
+    return result;
+  }
 
   private processUrl(url: string, result: IpFileMap): void {
     const urlObject = new URL(url);
@@ -50,32 +56,5 @@ export class UrlManipulationService {
       }
       return acc;
     }, currentLevel);
-  }
-
-  /**
-   * Fetches the data from the API and processes it to return the desired structure.
-   * @returns The processed data.
-   */
-  public async transformUrls(): Promise<IpFileMap> {
-    try {
-      /*  const data: DataFile | undefined = await this.cacheManager.get(
-        this.cacheKey,
-      ); */
-      const data = await this.vercelTestService.getVercelTestEndpoint();
-
-      if (!data) {
-        await this.cacheManager.set(this.cacheKey, data, 180);
-      }
-
-      const result: IpFileMap = {};
-      data.items.forEach((fileUrlObject) => {
-        this.processUrl(fileUrlObject.fileUrl, result);
-      });
-
-      return result;
-    } catch (error) {
-      console.error('Error fetching or processing the API data:', error);
-      throw error;
-    }
   }
 }
