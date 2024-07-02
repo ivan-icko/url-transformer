@@ -4,6 +4,7 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { HttpExceptionFilter } from '../../common/filters/http-excetpion.filter';
 import { LoggerInterceptor } from '../../common/interceptors/logger.interceptor';
 import { CacheMethodResult } from '../../common/decorators/cache/cache.decorator';
+import { UrlManipulationResponseDto } from './dto/url-manipulation.response.dto';
 
 /**
  * Controller responsible for handling requests related to the "url-manipulation" endpoint.
@@ -25,7 +26,7 @@ export class UrlManipulationController {
   @CacheMethodResult({ ttl: 60 })
   @ApiOperation({ summary: 'Transform URL' })
   @ApiResponse({ status: 200, description: 'Successfully transformed URL' })
-  public async transformUrl(): Promise<any> {
+  public async transformUrl(): Promise<UrlManipulationResponseDto> {
     return await this.urlManipulationService.transformUrls();
   }
 }
