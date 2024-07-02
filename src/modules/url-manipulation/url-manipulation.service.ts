@@ -1,13 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { VercelTestService } from '../services/vercel-test/vercel-test.service';
-
-interface FileStructure {
-  [directory: string]: (string | FileStructure)[];
-}
-
-interface IpFileMap {
-  [ip: string]: FileStructure[];
-}
+import {
+  FileStructure,
+  UrlManipulationResponseDto,
+} from './dto/url-manipulation.response.dto';
 
 @Injectable()
 export class UrlManipulationService {
@@ -17,16 +13,16 @@ export class UrlManipulationService {
    * Fetches the data from the API and processes it to return the desired structure.
    * @returns The processed data.
    */
-  public async transformUrls(): Promise<IpFileMap> {
+  public async transformUrls(): Promise<UrlManipulationResponseDto> {
     const data = await this.vercelTestService.getTestFileUrls();
-    const result: IpFileMap = {};
+    const result: UrlManipulationResponseDto = {};
     data.items.forEach((fileUrlObject) => {
       this.processUrl(fileUrlObject.fileUrl, result);
     });
     return result;
   }
 
-  private processUrl(url: string, result: IpFileMap): void {
+  private processUrl(url: string, result: UrlManipulationResponseDto): void {
     const urlObject = new URL(url);
     const ip = urlObject.hostname;
     const paths = urlObject.pathname.split('/').filter((path) => path !== '');
