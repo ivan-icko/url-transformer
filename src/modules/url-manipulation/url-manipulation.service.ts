@@ -4,16 +4,21 @@ import {
   FileStructure,
   UrlManipulationResponseDto,
 } from './dto/url-manipulation.response.dto';
+import { LoggerService } from '../../common/modules/logger/logger.service';
 
 @Injectable()
 export class UrlManipulationService {
-  constructor(private readonly vercelTestService: VercelTestService) {}
+  constructor(
+    private readonly vercelTestService: VercelTestService,
+    private readonly logger: LoggerService,
+  ) {}
 
   /**
    * Fetches the data from the API and processes it to return the desired structure.
    * @returns The processed data.
    */
   public async transformUrls(): Promise<UrlManipulationResponseDto> {
+    this.logger.info(`${this.constructor.name}: Start to transform the URLs.`);
     const data = await this.vercelTestService.getTestFileUrls();
     const result: UrlManipulationResponseDto = {};
     data.items.forEach((fileUrlObject) => {
