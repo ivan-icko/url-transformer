@@ -9,8 +9,6 @@ import database from './config/database.config';
 import servicesConfig from './config/services.config';
 import generalConfig from './config/general.config';
 import { ResponseModule } from './common/modules/response/response.module';
-import { RedisModule } from './common/modules/redis/redis.module';
-import { CacheModule } from './common/modules/cache/cachel.module';
 
 @Module({
   imports: [
@@ -23,8 +21,6 @@ import { CacheModule } from './common/modules/cache/cachel.module';
       load: [database, logger, servicesConfig, generalConfig],
     }),
     ResponseModule,
-    RedisModule,
-    CacheModule,
   ],
   controllers: [],
   providers: [],

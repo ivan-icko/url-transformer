@@ -20,4 +20,7 @@ export default registerAs(DATABASE_CONFIG, () => ({
     database: Number(process.env.REDIS_DATABASE) || 0,
     redisGlobalPrefix: process.env.REDIS_GLOBAL_PREFIX || 'nest:',
   },
+  nodeCache: {
+    ttl: Number(process.env.NODE_CACHE_TTL) || 100,
+  },
 }));
