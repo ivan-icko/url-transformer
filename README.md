@@ -71,3 +71,17 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+ ### Build the Docker Image
+
+1. Ensure you have Docker installed and running on your machine.
+2. Build the Docker image using the following command:
+
+```bash
+docker build -t url-transformer-app .
+```
+
+### Run the Docker container using the following command:
+```bash
+docker run -d --name url-transformer-container -p 3000:3000 url-transformer-app
+```
