@@ -26,11 +26,15 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Project Details
+
+This is a simple NestJS project that uses the public URL `VERCEL_TEST_SERVICE_ENDPOINT=https://rest-test-eight.vercel.app/` to fetch file URLs. The project caches the response using `node-cache` to improve performance and reduce the delay caused by the API call, which can take a couple of seconds. The modified response is then returned to the client.
+
 ## Installation
 
 ```bash
 $ npm install
-```
+
 
 ## Running the app
 
